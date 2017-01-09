@@ -39,7 +39,8 @@ Rectangle {
 
     Counter {
         id : counter
-        counterSizeInSeconds : 500
+        workTimeAmount : 500
+        restTimeAmount : 200
         onTimeChanged: page.timer = toStrings()
     }
 

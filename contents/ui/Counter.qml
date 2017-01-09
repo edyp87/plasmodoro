@@ -1,10 +1,13 @@
-import QtQuick 2.0
+import QtQuick 2.7
 
 Item {
     id: counter
-    property int counterSizeInSeconds
-    property int secondsElapsed : counterSizeInSeconds
+    property int workTimeAmount
+    property int restTimeAmount
+    property int secondsElapsed : workTimeAmount
     signal timeChanged
+    signal stateChanged
+    state: "pomodoro_work"
 
     function toStrings()
     {
@@ -28,7 +31,7 @@ Item {
 
     function reset()
     {
-        secondsElapsed = counterSizeInSeconds
+        secondsElapsed = workTimeAmount
     }
 
     function makePrintible(number)
@@ -57,16 +60,47 @@ Item {
         }
     }
 
+    states: [
+        State {
+            name: "pomodoro_work"
+            PropertyChanges {
+                target: counter
+                secondsElapsed: workTimeAmount
+            }
+        },
+        State {
+            name: "pomodoro_rest"
+            PropertyChanges {
+                target: counter
+                secondsElapsed: restTimeAmount
+            }
+        }
+
+    ]
+
+    function changeState()
+    {
+        counter.stateChanged()
+        if (state == "pomodoro_work") {
+            state = "pomodoro_rest"
+            console.log("to pomodoro_rest")
+        }
+        else {
+            state = "pomodoro_work"
+            console.log("to pomodoro_work")
+        }
+    }
+
     Timer
     {
         id: secondsCounter
         interval: 1
         running: true
+        Component.onCompleted: counter.timeChanged()
         onTriggered: {
             if (counter.secondsElapsed <= 0)
             {
-                stop()
-                return
+                counter.changeState()
             }
             counter.secondsElapsed--;
             restart()
