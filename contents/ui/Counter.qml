@@ -48,6 +48,15 @@ Item {
         secondsCounter.start()
     }
 
+    function pauseUnpause()
+    {
+        if (secondsCounter.running) {
+            secondsCounter.stop()
+        } else {
+            secondsCounter.start()
+        }
+    }
+
     Timer
     {
         id: secondsCounter

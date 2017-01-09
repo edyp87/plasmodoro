@@ -23,8 +23,17 @@ Rectangle {
 
             MouseArea
             {
+                acceptedButtons: Qt.LeftButton | Qt.MiddleButton
                 anchors.fill: parent
-                onClicked: { counter.reset(); counter.start() }
+                onClicked: {
+                    if (mouse.button == Qt.LeftButton) {
+                        counter.pauseUnpause()
+                    }
+                    else if (mouse.button == Qt.MiddleButton) {
+                        counter.reset()
+                        counter.start()
+                    }
+                }
             }
     }
 
