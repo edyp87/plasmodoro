@@ -2,7 +2,7 @@ import QtQuick 2.0
 import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.components 2.0 as PlasmaComponents
 import org.kde.plasma.core 2.0 as PlasmaCore
-
+import org.kde.plasma.private.timer 0.1 as TimerPlasmoid
 
 Rectangle {
     id: page
@@ -42,6 +42,7 @@ Rectangle {
         workTimeAmount : 500
         restTimeAmount : 200
         onTimeChanged: page.timer = toStrings()
+        onStateChanged: TimerPlasmoid.Timer.runCommand("play --no-show-progress /usr/share/sounds/KDE-Sys-App-Positive.ogg")
     }
 
 }
