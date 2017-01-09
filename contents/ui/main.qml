@@ -14,7 +14,9 @@ Rectangle {
 
             id: clock
             anchors.fill: parent
-            font.pixelSize: parent.height < parent.width / 4 ? parent.height : parent.width / 4;
+            font.pixelSize: parent.height < parent.width / (counter.toStrings().length/2) ?
+                                parent.height :
+                                parent.width / (counter.toStrings().length/2);
 
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
@@ -39,8 +41,8 @@ Rectangle {
 
     Counter {
         id : counter
-        workTimeAmount : 500
-        restTimeAmount : 200
+        workTimeAmount : 25 * 60
+        restTimeAmount : 5  * 60
         onTimeChanged: page.timer = toStrings()
         onStateChanged: TimerPlasmoid.Timer.runCommand("play --no-show-progress /usr/share/sounds/KDE-Sys-App-Positive.ogg")
     }

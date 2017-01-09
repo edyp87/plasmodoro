@@ -11,7 +11,12 @@ Item {
 
     function toStrings()
     {
-        return  "".concat(makePrintible(getHours()), ":", makePrintible(getMinutes()), ":", makePrintible(getSeconds()))
+        var suffix = "work - "
+        if (state === "pomodoro_rest") {
+            suffix = "rest - "
+        }
+
+        return  suffix.concat(makePrintible(getHours()), ":", makePrintible(getMinutes()), ":", makePrintible(getSeconds()))
     }
 
     function getSeconds()
