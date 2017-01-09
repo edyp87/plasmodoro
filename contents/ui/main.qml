@@ -8,27 +8,24 @@ Rectangle {
     id: page
     anchors.fill: parent
     color: "transparent"
-    //Component.onCompleted: parent.height = 600
     property string timer : ""
 
     Plasmoid.compactRepresentation: PlasmaComponents.Label {
 
-            id : clock
+            id: clock
             anchors.fill: parent
-            font.pixelSize: panelItem.textHeight
-         //   scale: paintedWidth > width ? (width / paintedWidth) : 1
+            font.pixelSize: parent.height < parent.width / 4 ? parent.height : parent.width / 4;
 
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
 
-            text : page.timer
+            text: page.timer
 
             MouseArea
             {
-                anchors.fill : parent
+                anchors.fill: parent
                 onClicked: { counter.reset(); counter.start() }
             }
-
     }
 
     Counter {
